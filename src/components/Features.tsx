@@ -21,7 +21,7 @@ const features = [
 
 export const Features: React.FC = () => {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-8 relative">
+    <section className="py-28 md:py-40 px-6 md:px-12 relative my-20 md:my-32">
       <div className="max-w-7xl mx-auto">
         <h2 className="[font-family:'Poppins',Helvetica] font-semibold text-3xl md:text-5xl text-center tracking-[0] leading-[normal] animate-fade-up">
           <span className="text-white">Fly safe with parts you</span>
@@ -47,7 +47,7 @@ export const Features: React.FC = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+        <div className="mt-20 md:mt-28 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           {features.map((feature, index) => (
             <div 
               key={index} 
