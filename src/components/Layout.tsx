@@ -2,7 +2,6 @@ import React from "react";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { Clients } from "./Clients";
-import { Services } from "./Services";
 import { Inventory } from "./Inventory";
 import { Stats } from "./Stats";
 import { Features } from "./Features";
@@ -25,7 +24,6 @@ export const Layout: React.FC = () => {
       <Header />
       <Hero />
       <Clients />
-      <Services />
       <Inventory />
       <Stats />
       <Features />
