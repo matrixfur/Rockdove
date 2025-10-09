@@ -1,11 +1,5 @@
 import React, { useState, useRef } from "react";
-import {
-  ChevronDown,
-  Wrench,
-  Plane,
-  Briefcase,
-  HelpCircle,
-} from "lucide-react";
+import { ChevronDown as ChevronDownIcon, Wrench, Plane, Briefcase, HelpCircle } from "lucide-react";
 import { Button } from "./ui/button";
 
 const navigationItems = [
@@ -16,23 +10,14 @@ const navigationItems = [
       {
         title: "Management",
         links: [
-          {
-            name: "Asset Management",
-            icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" />,
-          },
-          {
-            name: "Repair Management",
-            icon: <Wrench className="w-4 h-4 text-[#5cc6d0]" />,
-          },
+          { name: "Asset Management", icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" /> },
+          { name: "Repair Management", icon: <Wrench className="w-4 h-4 text-[#5cc6d0]" /> },
         ],
       },
       {
         title: "Support",
         links: [
-          {
-            name: "24/7 AOG Support",
-            icon: <Plane className="w-4 h-4 text-[#5cc6d0]" />,
-          },
+          { name: "24/7 AOG Support", icon: <Plane className="w-4 h-4 text-[#5cc6d0]" /> },
         ],
       },
     ],
@@ -45,23 +30,14 @@ const navigationItems = [
       {
         title: "About",
         links: [
-          {
-            name: "The Story",
-            icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" />,
-          },
-          {
-            name: "Careers",
-            icon: <Plane className="w-4 h-4 text-[#5cc6d0]" />,
-          },
+          { name: "The Story", icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" /> },
+          { name: "Careers", icon: <Plane className="w-4 h-4 text-[#5cc6d0]" /> },
         ],
       },
       {
         title: "More",
         links: [
-          {
-            name: "FAQs",
-            icon: <HelpCircle className="w-4 h-4 text-[#5cc6d0]" />,
-          },
+          { name: "FAQs", icon: <HelpCircle className="w-4 h-4 text-[#5cc6d0]" /> },
         ],
       },
     ],
@@ -73,17 +49,12 @@ export const Header: React.FC = () => {
   const closeTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (label: string) => {
-    if (closeTimeout.current) {
-      clearTimeout(closeTimeout.current);
-      closeTimeout.current = null;
-    }
+    if (closeTimeout.current) clearTimeout(closeTimeout.current);
     setActiveDropdown(label);
   };
 
   const handleMouseLeave = () => {
-    closeTimeout.current = setTimeout(() => {
-      setActiveDropdown(null);
-    }, 200);
+    closeTimeout.current = setTimeout(() => setActiveDropdown(null), 150);
   };
 
   return (
@@ -96,7 +67,7 @@ export const Header: React.FC = () => {
       />
 
       {/* Navigation */}
-      <nav className="flex flex-1 justify-center items-center gap-8 md:gap-14 relative">
+      <nav className="flex flex-1 justify-center items-center gap-12 relative">
         {navigationItems.map((item) => (
           <div
             key={item.label}
@@ -104,23 +75,13 @@ export const Header: React.FC = () => {
             onMouseEnter={() => item.hasDropdown && handleMouseEnter(item.label)}
             onMouseLeave={() => item.hasDropdown && handleMouseLeave()}
           >
-            <span
-              className={`font-semibold text-base md:text-lg transition-colors duration-300 ${
-                activeDropdown === item.label
-                  ? "text-[#4ab5bf]"
-                  : "text-[#5cc6d0]"
-              }`}
-            >
+            <span className={`font-bold text-base md:text-lg transition-colors duration-300 ${activeDropdown === item.label ? "text-[#4ab5bf]" : "text-[#5cc6d0]"}`}>
               {item.label}
             </span>
 
             {item.hasDropdown && (
-              <ChevronDown
-                className={`w-5 h-5 transition-all duration-300 ${
-                  activeDropdown === item.label
-                    ? "text-[#4ab5bf] translate-y-[2px]"
-                    : "text-[#5cc6d0]"
-                }`}
+              <ChevronDownIcon
+                className={`w-5 h-5 text-[#5cc6d0] transition-all duration-300 ${activeDropdown === item.label ? "text-[#4ab5bf] translate-y-[2px]" : ""}`}
               />
             )}
 
@@ -130,17 +91,14 @@ export const Header: React.FC = () => {
                 <div className="grid grid-cols-2 gap-8">
                   {item.sections?.map((section, i) => (
                     <div key={i}>
-                      <h4 className="text-[#5cc6d0] font-semibold mb-3 text-sm uppercase tracking-wide">
-                        {section.title}
-                      </h4>
+                      <h4 className="text-[#5cc6d0] font-semibold mb-3 text-sm uppercase tracking-wide">{section.title}</h4>
                       <ul className="space-y-3">
                         {section.links.map((link, j) => (
                           <li
                             key={j}
                             className="flex items-center gap-2 text-white/80 hover:text-[#5cc6d0] transition-colors cursor-pointer text-base"
                           >
-                            {link.icon}
-                            {link.name}
+                            {link.icon} {link.name}
                           </li>
                         ))}
                       </ul>
@@ -154,14 +112,12 @@ export const Header: React.FC = () => {
       </nav>
 
       {/* Contact Button */}
-      <div>
-        <Button
-          variant="outline"
-          className="rounded-full border border-[#5cc6d0] text-[#5cc6d0] px-6 py-2 hover:bg-[#5cc6d0] hover:text-black transition-all duration-300 hover:scale-110 shadow-sm hover:shadow-[#5cc6d0]/30"
-        >
-          Contact
-        </Button>
-      </div>
+      <Button
+        variant="outline"
+        className="rounded-full border border-[#5cc6d0] text-[#5cc6d0] px-6 py-2 hover:bg-[#5cc6d0] hover:text-black transition-all duration-300 hover:scale-110 shadow-sm hover:shadow-[#5cc6d0]/30"
+      >
+        Contact
+      </Button>
     </header>
   );
 };
