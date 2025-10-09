@@ -1,0 +1,124 @@
+/* Horror-themed CSS effects */
+
+/* Flickering text effect */
+@keyframes textFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+  75% { opacity: 0.9; }
+}
+
+/* Spooky glow effect */
+@keyframes spookyGlow {
+  0%, 100% { 
+    text-shadow: 0 0 5px #5cc6d0, 0 0 10px #5cc6d0, 0 0 15px #5cc6d0;
+    filter: brightness(1.2);
+  }
+  50% { 
+    text-shadow: 0 0 10px #5cc6d0, 0 0 20px #5cc6d0, 0 0 30px #5cc6d0, 0 0 40px #5cc6d0;
+    filter: brightness(1.5);
+  }
+}
+
+/* Ghostly float animation */
+@keyframes ghostFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.8;
+  }
+  25% { 
+    transform: translateY(-5px) rotate(1deg);
+    opacity: 0.9;
+  }
+  50% { 
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 1;
+  }
+  75% { 
+    transform: translateY(-5px) rotate(-1deg);
+    opacity: 0.9;
+  }
+}
+
+/* Spooky shake effect */
+@keyframes spookyShake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-1px); }
+  20% { transform: translateX(1px); }
+  30% { transform: translateX(-1px); }
+  40% { transform: translateX(1px); }
+  50% { transform: translateX(-1px); }
+  60% { transform: translateX(1px); }
+  70% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+  90% { transform: translateX(-1px); }
+}
+
+/* Horror fade-in with delay */
+@keyframes horrorFadeIn {
+  0% { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.95);
+    filter: blur(2px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Spooky hover effects */
+.spooky-hover:hover {
+  animation: spookyShake 0.5s ease-in-out;
+  filter: brightness(1.3);
+}
+
+/* Horror-themed utility classes */
+.horror-text {
+  animation: textFlicker 3s infinite;
+}
+
+.spooky-glow {
+  animation: spookyGlow 4s ease-in-out infinite;
+}
+
+.ghost-float {
+  animation: ghostFloat 6s ease-in-out infinite;
+}
+
+.horror-fade-in {
+  animation: horrorFadeIn 0.8s ease-out forwards;
+}
+
+/* Responsive horror effects */
+@media (max-width: 768px) {
+  .spooky-glow {
+    animation-duration: 2s;
+  }
+  
+  .ghost-float {
+    animation-duration: 4s;
+  }
+}
+
+/* Dark theme enhancements */
+.dark-horror {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+}
+
+/* Spooky shadows */
+.spooky-shadow {
+  box-shadow: 0 0 20px rgba(92, 198, 208, 0.3), 
+              0 0 40px rgba(92, 198, 208, 0.2),
+              inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Horror-themed transitions */
+.horror-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.horror-transition:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.2) contrast(1.1);
+}
