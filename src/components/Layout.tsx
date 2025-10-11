@@ -4,7 +4,7 @@ import { Hero } from "./Hero";
 import { Clients } from "./Clients";
 import { Inventory } from "./Inventory";
 import { Stats } from "./Stats";
-import { Features } from "./Features";
+import Features from "./Features";
 import { FAQ } from "./FAQ";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
