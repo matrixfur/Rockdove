@@ -128,17 +128,8 @@ export const Features: React.FC = () => {
     <section
       ref={sectionRef}
       style={{ height: sectionHeight }}
-      className="relative flex flex-col items-center justify-start overflow-hidden bg-[#02040a]"
+      className="relative flex flex-col items-center justify-start overflow-hidden bg-black"
     >
-      {/* Animated gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#0b1320_0%,#02040a_100%)] animate-[gradientMove_10s_ease_infinite]" />
-      <style>{`
-        @keyframes gradientMove {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
-        }
-      `}</style>
-
       {/* Title */}
       <h2
         ref={titleRef}
