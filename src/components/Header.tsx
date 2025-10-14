@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
     ChevronDown as ChevronDownIcon,
     Wrench,
@@ -18,19 +19,19 @@ const navigationItems = [
       {
         title: "Management",
         links: [
-          { name: "Asset Management", icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" /> },
-          { name: "Repair Management", icon: <Wrench className="w-4 h-4 text-[#5cc6d0]" /> },
+          { name: "Asset Management", icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" />, href: "/asset-management" },
+          { name: "Repair Management", icon: <Wrench className="w-4 h-4 text-[#5cc6d0]" />, href: "/repair-management" },
         ],
       },
       {
         title: "Support",
         links: [
-          { name: "24/7 AOG Support", icon: <Plane className="w-4 h-4 text-[#5cc6d0]" /> },
+          { name: "24/7 AOG Support", icon: <Plane className="w-4 h-4 text-[#5cc6d0]" />, href: "/aog-support" },
         ],
       },
     ],
   },
-  { label: "RFQ", hasDropdown: false },
+  { label: "RFQ", hasDropdown: false, href: "/rfq" },
   {
     label: "Company",
     hasDropdown: true,
@@ -38,14 +39,14 @@ const navigationItems = [
       {
         title: "About",
         links: [
-          { name: "The Story", icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" /> },
-          { name: "Careers", icon: <Plane className="w-4 h-4 text-[#5cc6d0]" /> },
+          { name: "The Story", icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" />, href: "/the-story" },
+          { name: "Careers", icon: <Plane className="w-4 h-4 text-[#5cc6d0]" />, href: "/careers" },
         ],
       },
       {
         title: "More",
         links: [
-          { name: "FAQs", icon: <HelpCircle className="w-4 h-4 text-[#5cc6d0]" /> },
+          { name: "FAQs", icon: <HelpCircle className="w-4 h-4 text-[#5cc6d0]" />, href: "/faqs" },
         ],
       },
     ],
@@ -95,9 +96,18 @@ export const Header: React.FC = () => {
             onMouseEnter={() => item.hasDropdown && handleMouseEnter(item.label)}
             onMouseLeave={() => item.hasDropdown && handleMouseLeave()}
           >
-            <span className={`font-bold text-base md:text-lg transition-colors duration-300 ${activeDropdown === item.label ? "text-[#4ab5bf]" : "text-[#5cc6d0]"}`}>
-              {item.label}
-            </span>
+            {item.hasDropdown ? (
+              <span className={`font-bold text-base md:text-lg transition-colors duration-300 ${activeDropdown === item.label ? "text-[#4ab5bf]" : "text-[#5cc6d0]"}`}>
+                {item.label}
+              </span>
+            ) : (
+              <Link
+                to={item.href || "#"}
+                className={`font-bold text-base md:text-lg transition-colors duration-300 ${activeDropdown === item.label ? "text-[#4ab5bf]" : "text-[#5cc6d0]"}`}
+              >
+                {item.label}
+              </Link>
+            )}
 
             {item.hasDropdown && (
               <ChevronDownIcon
@@ -114,11 +124,13 @@ export const Header: React.FC = () => {
                       <h4 className="text-[#5cc6d0] font-semibold mb-3 text-sm uppercase tracking-wide">{section.title}</h4>
                       <ul className="space-y-3">
                         {section.links.map((link, j) => (
-                          <li
-                            key={j}
-                            className="flex items-center gap-2 text-white/80 hover:text-[#5cc6d0] transition-colors cursor-pointer text-base"
-                          >
-                            {link.icon} {link.name}
+                          <li key={j}>
+                            <Link
+                              to={link.href || "#"}
+                              className="flex items-center gap-2 text-white/80 hover:text-[#5cc6d0] transition-colors cursor-pointer text-base"
+                            >
+                              {link.icon} {link.name}
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -198,9 +210,14 @@ export const Header: React.FC = () => {
                                 <h5 className="text-sm text-[#4ab5bf] font-medium mb-2 uppercase">{section.title}</h5>
                                 <ul className="space-y-2">
                                   {section.links.map((link, li) => (
-                                    <li key={li} className="flex items-center gap-3 text-white/80 hover:text-[#5cc6d0]">
-                                      {link.icon}
-                                      <span>{link.name}</span>
+                                    <li key={li}>
+                                      <Link
+                                        to={link.href || "#"}
+                                        className="flex items-center gap-3 text-white/80 hover:text-[#5cc6d0] cursor-pointer"
+                                      >
+                                        {link.icon}
+                                        <span>{link.name}</span>
+                                      </Link>
                                     </li>
                                   ))}
                                 </ul>
@@ -210,9 +227,12 @@ export const Header: React.FC = () => {
                         </div>
                       </>
                     ) : (
-                      <button className="w-full text-left text-white/90 font-semibold text-lg py-2">
+                      <Link
+                        to={item.href || "#"}
+                        className="w-full text-left text-white/90 font-semibold text-lg py-2 block"
+                      >
                         <span className="text-[#5cc6d0]">{item.label}</span>
-                      </button>
+                      </Link>
                     )}
                   </li>
                 ))}
