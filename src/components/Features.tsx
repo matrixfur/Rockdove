@@ -97,13 +97,6 @@ const Features: React.FC = () => {
           },
         });
 
-        planeTimeline.to(planeRef.current, {
-          rotation: 5,
-          yoyo: true,
-          repeat: -1,
-          duration: 1.2,
-          ease: "sine.inOut",
-        });
 
         FEATURES.forEach((_, i) => {
           const el = featureRefs.current[i];
