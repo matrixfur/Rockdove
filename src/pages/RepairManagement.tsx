@@ -1,133 +1,161 @@
-import React from "react";
-import { Wrench, Settings, Clock, AlertTriangle, CheckCircle, Users } from "lucide-react";
-import { Button } from "../components/ui/button";
+import React from 'react';
+import { ContainerScroll } from '../components/ui/container-scroll-animation';
+import { Button } from '../components/ui/button';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { GlowEffect } from '../components/ui/GlowEffect';
+import { Meteors } from '../components/ui/meteors';
 
-const RepairManagement: React.FC = () => {
-  const features = [
-    {
-      icon: <Settings className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Automated Workflow",
-      description: "Streamline repair processes with intelligent automation and workflow optimization."
-    },
-    {
-      icon: <Clock className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Turnaround Optimization",
-      description: "Minimize repair times with predictive scheduling and resource allocation."
-    },
-    {
-      icon: <AlertTriangle className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Quality Assurance",
-      description: "Ensure every repair meets the highest standards with comprehensive quality checks."
-    },
-    {
-      icon: <Users className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Expert Network",
-      description: "Access certified technicians and specialized repair facilities worldwide."
-    }
+const Card = ({ className, children }: { className?: string; children: React.ReactNode }) => (
+  <div
+    className={cn(
+      'relative h-full w-full p-4 overflow-hidden bg-black border border-white/[0.2] group-hover:border-white/[0.3] rounded-2xl transition-all duration-300 min-h-[300px]',
+      className
+    )}
+  >
+    <Meteors number={20} />
+    <div className="relative z-10">
+      {children}
+    </div>
+  </div>
+);
+
+const RepairManagementPage = () => {
+  const serviceSteps = [
+    { title: 'Assessment & Diagnosis', description: 'Thorough inspection of components like thrust reversers and actuators.' },
+    { title: 'Repair & Overhaul', description: 'Utilizing partnerships for specialized fixes on engines, brakes, and wheels.' },
+    { title: 'Testing & Certification', description: 'Rigorous quality checks to guarantee reliability.' },
+    { title: 'Integration with Supply Chain', description: 'Seamless coordination with warehousing and distribution for quick part replacement.' },
   ];
 
-  const repairTypes = [
-    "Engine Overhaul",
-    "Avionics Repair",
-    "Landing Gear Service",
-    "Hydraulic System Maintenance",
-    "Structural Repairs",
-    "Component Testing"
+  const partners = [
+    { name: 'SAT (SAT Aerospace Technologies, Inc.)', description: 'Provides comprehensive repair and service solutions for aircraft components.', logo: 'SAT' },
+    { name: 'LogoSky', description: 'Specializes in aircraft placard distribution, ensuring compliance and quick turnaround.', logo: 'LogoSky' },
+    { name: 'Shanghai Junxun Aviation', description: 'Offers strategic aerospace tools for precise repairs in the aviation industry.', logo: 'SJA' },
+    { name: 'JS-Tooling', description: 'Delivers advanced tooling solutions for complex maintenance tasks.', logo: 'JS-T' },
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <Wrench className="w-12 h-12 text-[#5cc6d0]" />
-            <h1 className="text-5xl md:text-6xl font-bold">Repair Management</h1>
+    <div className="flex flex-col overflow-hidden bg-black text-white">
+      <ContainerScroll
+        titleComponent={
+          <>
+            <h1 className="text-4xl font-semibold text-white">
+              Comprehensive Repair Management for <br />
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">Unmatched Aircraft Reliability</span>
+            </h1>
+          </>
+        }
+      >
+        <div className="py-20 px-8">
+          <div className="max-w-6xl mx-auto relative rounded-2xl border border-white/[0.2]">
+            <GlowEffect />
+            <div className="relative z-10 bg-black rounded-2xl">
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="grid md:grid-cols-4 gap-8 p-4"
+                >
+                  {serviceSteps.map((step, index) => (
+                    <motion.div
+                      key={index}
+                      className={cn(
+                        'transition-transform duration-300 hover:scale-105',
+                        index === 0 || index === 3 ? 'md:translate-y-8' : 'md:-translate-y-8'
+                      )}
+                    >
+                      <Card>
+                        <div className="flex flex-col p-4 h-full">
+                          <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                          <p className="text-gray-400">{step.description}</p>
+                        </div>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </motion.div>
+            </div>
           </div>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl leading-relaxed">
-            Optimize your aircraft repair operations with our comprehensive management platform. 
-            From initial assessment to final delivery, we ensure every repair meets the highest standards.
-          </p>
         </div>
-      </section>
+      </ContainerScroll>
 
-      {/* Features Section */}
-      <section className="py-20 px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Comprehensive Repair Solutions</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            {features.map((feature, index) => (
-              <div key={index} className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-8 hover:bg-[#0b0d10]/70 transition-all duration-300">
-                <div className="flex items-start gap-4">
-                  {feature.icon}
-                  <div>
-                    <h3 className="text-2xl font-semibold mb-4 text-[#5cc6d0]">{feature.title}</h3>
-                    <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+      {/* Partnerships Section */}
+      <section className="py-20 px-8 bg-black">
+        <div className="max-w-6xl mx-auto text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl font-bold mb-4"
+          >
+            Powered by Industry-Leading Partnerships
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg text-gray-400 mb-12"
+          >
+            Our alliances with top providers enhance our repair capabilities, delivering reliable, efficient, and innovative solutions.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="grid md:grid-cols-4 gap-8"
+          >
+            {partners.map((partner, index) => (
+              <motion.div
+                key={index}
+                className="relative group transition-transform duration-300 hover:scale-105"
+                whileHover={{ y: -10 }}
+              >
+                <GlowEffect
+                  colors={['#9333ea']}
+                  blur="medium"
+                  className="absolute -inset-0.5 rounded-2xl opacity-75 group-hover:opacity-100 transition-opacity"
+                  mode="static"
+                />
+                <div className="relative h-full w-full p-4 overflow-hidden bg-black border border-white/[0.2] group-hover:border-white/[0.3] rounded-2xl transition-all duration-300 min-h-[300px]">
+                  <Meteors number={20} />
+                  <div className="relative z-10 flex flex-col items-center text-center p-4 h-full">
+                    <div className="bg-gray-800 rounded-full w-24 h-24 flex items-center justify-center mb-4">
+                      <span className="text-white font-bold text-lg">{partner.logo}</span>
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">{partner.name}</h3>
+                    <p className="text-gray-400">{partner.description}</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Repair Types Section */}
-      <section className="py-20 px-8 bg-[#0b0d10]/30">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Specialized Repair Services</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {repairTypes.map((type, index) => (
-              <div key={index} className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-6 text-center hover:bg-[#0b0d10]/70 transition-all duration-300">
-                <CheckCircle className="w-8 h-8 text-[#5cc6d0] mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-[#5cc6d0]">{type}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20 px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Our Repair Process</h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Assessment", description: "Comprehensive evaluation of repair requirements" },
-              { step: "02", title: "Planning", description: "Detailed repair plan with timeline and resources" },
-              { step: "03", title: "Execution", description: "Expert technicians perform the repair work" },
-              { step: "04", title: "Quality Check", description: "Thorough testing and certification process" }
-            ].map((process, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-[#5cc6d0] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  {process.step}
-                </div>
-                <h3 className="text-xl font-semibold mb-2 text-[#5cc6d0]">{process.title}</h3>
-                <p className="text-gray-300">{process.description}</p>
-              </div>
-            ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-8 bg-[#0b0d10]/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">Need Expert Repair Services?</h2>
-          <p className="text-xl text-gray-300 mb-12">
-            Our certified technicians and state-of-the-art facilities ensure your aircraft components are repaired to the highest standards.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-[#5cc6d0] text-black px-8 py-4 text-lg font-semibold hover:bg-[#4ab5bf] transition-all duration-300 hover:scale-105">
-              Request Repair Quote
+      <section className="py-20 px-8 text-center">
+        <div className="max-w-2xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl font-bold mb-4"
+          >
+            Elevate Your Aircraft Maintenance Today
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Button className="bg-blue-600 text-white px-8 py-4 text-lg font-semibold hover:bg-blue-700">
+              Schedule a Repair Consultation
             </Button>
-            <Button variant="outline" className="border-[#5cc6d0] text-[#5cc6d0] px-8 py-4 text-lg font-semibold hover:bg-[#5cc6d0] hover:text-black transition-all duration-300">
-              Contact Our Team
-            </Button>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
   );
 };
 
-export default RepairManagement;
+export default RepairManagementPage;
