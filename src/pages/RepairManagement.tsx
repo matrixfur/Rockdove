@@ -1,33 +1,15 @@
-import React from 'react';
+import React, { lazy, Suspense } from "react";
 import { ContainerScroll } from '../components/ui/container-scroll-animation';
 import { Button } from '../components/ui/button';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { GlowEffect } from '../components/ui/GlowEffect';
 import { Meteors } from '../components/ui/meteors';
+import { GlowEffect } from "../components/ui/GlowEffect";
 
-const Card = ({ className, children }: { className?: string; children: React.ReactNode }) => (
-  <div
-    className={cn(
-      'relative h-full w-full p-4 overflow-hidden bg-black border border-white/[0.2] group-hover:border-white/[0.3] rounded-2xl transition-all duration-300 min-h-[300px]',
-      className
-    )}
-  >
-    <Meteors number={20} />
-    <div className="relative z-10">
-      {children}
-    </div>
-  </div>
-);
+// Lazy load the Spline component for faster initial load
+const Spline = lazy(() => import("@splinetool/react-spline"));
+
 
 const RepairManagementPage = () => {
-  const serviceSteps = [
-    { title: 'Assessment & Diagnosis', description: 'Thorough inspection of components like thrust reversers and actuators.' },
-    { title: 'Repair & Overhaul', description: 'Utilizing partnerships for specialized fixes on engines, brakes, and wheels.' },
-    { title: 'Testing & Certification', description: 'Rigorous quality checks to guarantee reliability.' },
-    { title: 'Integration with Supply Chain', description: 'Seamless coordination with warehousing and distribution for quick part replacement.' },
-  ];
-
   const partners = [
     { name: 'SAT (SAT Aerospace Technologies, Inc.)', description: 'Provides comprehensive repair and service solutions for aircraft components.', logo: 'SAT' },
     { name: 'LogoSky', description: 'Specializes in aircraft placard distribution, ensuring compliance and quick turnaround.', logo: 'LogoSky' },
@@ -42,38 +24,36 @@ const RepairManagementPage = () => {
           <>
             <h1 className="text-4xl font-semibold text-white">
               Comprehensive Repair Management for <br />
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">Unmatched Aircraft Reliability</span>
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none" style={{color: '#5cc6d0'}}>Unmatched Aircraft Reliability</span>
             </h1>
           </>
         }
       >
         <div className="py-20 px-8">
-          <div className="max-w-6xl mx-auto relative rounded-2xl border border-white/[0.2]">
-            <GlowEffect />
-            <div className="relative z-10 bg-black rounded-2xl">
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="grid md:grid-cols-4 gap-8 p-4"
-                >
-                  {serviceSteps.map((step, index) => (
-                    <motion.div
-                      key={index}
-                      className={cn(
-                        'transition-transform duration-300 hover:scale-105',
-                        index === 0 || index === 3 ? 'md:translate-y-8' : 'md:-translate-y-8'
-                      )}
-                    >
-                      <Card>
-                        <div className="flex flex-col p-4 h-full">
-                          <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                          <p className="text-gray-400">{step.description}</p>
-                        </div>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </motion.div>
+        <div className="max-w-6xl mx-auto relative rounded-2xl border border-[#1a1d22] bg-black/20 backdrop-blur-sm">
+            <div className="relative z-10 rounded-2xl p-8">
+              <div className="flex flex-col lg:flex-row items-center gap-8">
+                {/* Left side content */}
+                <div className="lg:w-1/2 text-left">
+                  <h2 className="text-3xl font-bold mb-4 " style={{color: '#5cc6d0'}}>Repair Management</h2>
+                  <p className="text-gray-300 leading-relaxed">
+                  Leveraging global partnerships and expert maintenance on key components like engines, APUs, and landing gears, we deliver fast, high-quality repairs to keep your fleet operational with minimal downtime.
+                  </p>
+                </div>
+                
+                {/* Right side Spline design */}
+                <div className="w-[670px] lg:w-1/2 h-[00px] md:h-[400px] transform lg:-translate-x-20">
+                  <Suspense
+                    fallback={
+                      <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+                        Loading 3D model...
+                      </div>
+                    }
+                  >
+                    <Spline scene="https://prod.spline.design/5Il-6GgGo4JuC90x/scene.splinecode" />
+                  </Suspense>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -110,13 +90,8 @@ const RepairManagementPage = () => {
                 className="relative group transition-transform duration-300 hover:scale-105"
                 whileHover={{ y: -10 }}
               >
-                <GlowEffect
-                  colors={['#9333ea']}
-                  blur="medium"
-                  className="absolute -inset-0.5 rounded-2xl opacity-75 group-hover:opacity-100 transition-opacity"
-                  mode="static"
-                />
-                <div className="relative h-full w-full p-4 overflow-hidden bg-black border border-white/[0.2] group-hover:border-white/[0.3] rounded-2xl transition-all duration-300 min-h-[300px]">
+                <GlowEffect blur='soft' />
+                <div className="relative z-10 h-full w-full p-4 overflow-hidden bg-black border border-white/[0.2] group-hover:border-white/[0.3] rounded-2xl transition-all duration-300 min-h-[300px]">
                   <Meteors number={20} />
                   <div className="relative z-10 flex flex-col items-center text-center p-4 h-full">
                     <div className="bg-gray-800 rounded-full w-24 h-24 flex items-center justify-center mb-4">
