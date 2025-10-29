@@ -1,56 +1,37 @@
-
-import React, { lazy, Suspense, useEffect, useRef } from "react";
-import { ContainerScroll } from "../components/ui/container-scroll-animation";
-import { Button } from "../components/ui/button";
-import { motion } from "framer-motion";
-import { Card, CardContent } from "../components/ui/card";
-import Header from "../components/Header";
+import React, { useEffect, useRef } from 'react';
+import { ContainerScroll } from '../components/ui/container-scroll-animation';
+import { Button } from '../components/ui/button';
+import { motion } from 'framer-motion';
+import { cn } from '../lib/utils';
+import { GlowEffect } from '../components/ui/GlowEffect';
+import { Meteors } from '../components/ui/meteors';
+import { Card, CardContent } from '../components/ui/card';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 
-// Lazy load the Spline component for faster initial load
-const Spline = lazy(() => import("@splinetool/react-spline"));
+const ServiceStepCard = ({ className, children }: { className?: string; children: React.ReactNode }) => (
+  <div
+    className={cn(
+      'relative h-full w-full p-4 overflow-hidden bg-black border border-white/[0.2] group-hover:border-white/[0.3] rounded-2xl transition-all duration-300 min-h-[300px]',
+      className
+    )}
+  >
+    <Meteors number={20} />
+    <div className="relative z-10">
+      {children}
+    </div>
+  </div>
+);
 
 const RepairManagementPage = () => {
-  const partnerCards = [
-    {
-      title: "SAT",
-      description:
-        "Provides comprehensive repair and service solutions for aircraft components.",
-      logo: "https://c.animaapp.com/mhamq68c87ZEAC/img/1630555350384-removebg-preview-1.png",
-      logoClass: "w-[200px] h-[200px]",
-    },
-    {
-      title: "LogoSky",
-      description:
-        "Provides comprehensive repair and service solutions for aircraft components.",
-      logo: "https://c.animaapp.com/mhamq68c87ZEAC/img/logosky-logos-lockup-black-1.png",
-      logoClass: "w-[162px] h-10",
-    },
-    {
-      title: "Shanghai Junxun\nAviation",
-      description:
-        "Provides comprehensive repair and service solutions for aircraft components.",
-      logo: "https://c.animaapp.com/mhamq68c87ZEAC/img/2022082410490570a173-removebg-preview-1.png",
-      logoClass: "w-[225px] h-[81px]",
-    },
-    {
-      title: "JS-Tooling",
-      description:
-        "Provides comprehensive repair and service solutions for aircraft components.",
-      logo: "https://c.animaapp.com/mhamq68c87ZEAC/img/logo-removebg-preview-1.png",
-      logoClass: "w-[200px] h-[130px]",
-    },
-  ];
-
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const planeRef = useRef<HTMLImageElement | null>(null);
   const whiteLineRef = useRef<HTMLDivElement | null>(null);
   const blueLineRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
     const section = sectionRef.current;
     const plane = planeRef.current;
     const blueLine = blueLineRef.current;
@@ -97,66 +78,90 @@ const RepairManagementPage = () => {
       );
     });
   }, []);
+  const serviceSteps = [
+    { title: 'Assessment & Diagnosis', description: 'Thorough inspection of components like thrust reversers and actuators.' },
+    { title: 'Repair & Overhaul', description: 'Utilizing partnerships for specialized fixes on engines, brakes, and wheels.' },
+    { title: 'Testing & Certification', description: 'Rigorous quality checks to guarantee reliability.' },
+    { title: 'Integration with Supply Chain', description: 'Seamless coordination with warehousing and distribution for quick part replacement.' },
+  ];
+
+  const partnerCards = [
+    {
+      title: "SAT",
+      description:
+        "Provides comprehensive repair and service solutions for aircraft components.",
+      logo: "https://c.animaapp.com/mhamq68c87ZEAC/img/1630555350384-removebg-preview-1.png",
+      logoClass: "w-[200px] h-[200px]",
+    },
+    {
+      title: "LogoSky",
+      description:
+        "Provides comprehensive repair and service solutions for aircraft components.",
+      logo: "https://c.animaapp.com/mhamq68c87ZEAC/img/logosky-logos-lockup-black-1.png",
+      logoClass: "w-[162px] h-10",
+    },
+    {
+      title: "Shanghai Junxun\nAviation",
+      description:
+        "Provides comprehensive repair and service solutions for aircraft components.",
+      logo: "https://c.animaapp.com/mhamq68c87ZEAC/img/2022082410490570a173-removebg-preview-1.png",
+      logoClass: "w-[225px] h-[81px]",
+    },
+    {
+      title: "JS-Tooling",
+      description:
+        "Provides comprehensive repair and service solutions for aircraft components.",
+      logo: "https://c.animaapp.com/mhamq68c87ZEAC/img/logo-removebg-preview-1.png",
+      logoClass: "w-[200px] h-[130px]",
+    },
+  ];
 
   return (
-    <>
-      <Header />
-      <div className="flex flex-col overflow-hidden bg-black text-white">
-        <ContainerScroll
-          titleComponent={
-            <>
-              <h1 className="text-4xl font-semibold text-white">
-                Comprehensive Repair Management for <br />
-                <span
-                  className="text-4xl md:text-[6rem] font-bold mt-1 leading-none"
-                  style={{ color: "#5cc6d0" }}
+    <div className="flex flex-col overflow-hidden bg-black text-white">
+      <ContainerScroll
+        titleComponent={
+          <>
+            <h1 className="text-4xl font-semibold text-white">
+              Comprehensive Repair Management for <br />
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">Unmatched Aircraft Reliability</span>
+            </h1>
+          </>
+        }
+      >
+        <div className="py-20 px-8">
+          <div className="max-w-6xl mx-auto relative rounded-2xl border border-white/[0.2]">
+            <GlowEffect />
+            <div className="relative z-10 bg-black rounded-2xl">
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="grid md:grid-cols-4 gap-8 p-4"
                 >
-                  Unmatched Aircraft Reliability
-                </span>
-              </h1>
-            </>
-          }
-        >
-          <div className="py-20 px-8">
-            <div className="max-w-6xl mx-auto relative rounded-2xl border border-[#1a1d22] bg-black/20 backdrop-blur-sm">
-              <div className="relative z-10 rounded-2xl p-8">
-                <div className="flex flex-col lg:flex-row items-center gap-8">
-                  {/* Left side content */}
-                  <div className="lg:w-1/2 text-left">
-                    <h2
-                      className="text-3xl font-bold mb-4 "
-                      style={{ color: "#5cc6d0" }}
+                  {serviceSteps.map((step, index) => (
+                    <motion.div
+                      key={index}
+                      className={cn(
+                        'transition-transform duration-300 hover:scale-105',
+                        index === 0 || index === 3 ? 'md:translate-y-8' : '-translate-y-8'
+                      )}
                     >
-                      Repair Management
-                    </h2>
-                    <p className="text-gray-300 leading-relaxed">
-                      Leveraging global partnerships and expert maintenance on key
-                      components like engines, APUs, and landing gears, we deliver
-                      fast, high-quality repairs to keep your fleet operational
-                      with minimal downtime.
-                    </p>
-                  </div>
-
-                  {/* Right side Spline design */}
-                  <div className="w-full lg:w-1/2 h-[300px] md:h-[400px] transform lg:-translate-x-20">
-                    <Suspense
-                      fallback={
-                        <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-                          Loading 3D model...
+                      <ServiceStepCard>
+                        <div className="flex flex-col p-4 h-full">
+                          <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                          <p className="text-gray-400">{step.description}</p>
                         </div>
-                      }
-                    >
-                      <Spline scene="https://prod.spline.design/5Il-6GgGo4JuC90x/scene.splinecode" />
-                    </Suspense>
-                  </div>
-                </div>
-              </div>
+                      </ServiceStepCard>
+                    </motion.div>
+                  ))}
+                </motion.div>
             </div>
           </div>
-        </ContainerScroll>
+        </div>
+      </ContainerScroll>
 
-        {/* Partnerships Section */}
-        <section className="relative px-[149px] py-[93px]">
+      {/* Partnerships Section */}
+      <section className="relative px-[149px] py-[93px]">
           <div className="text-center mb-[94px] translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
             <h2 className="[font-family:'Poppins',Helvetica] font-bold text-white text-[32px] tracking-[0] leading-[normal] mb-6">
               Powered by Industry-Leading Partnerships
@@ -202,7 +207,6 @@ const RepairManagementPage = () => {
             ))}
           </div>
         </section>
-
         <section
       ref={sectionRef}
       className="relative min-h-[230vh] bg-black text-white flex flex-col items-center justify-start py-24 font-[Poppins]"
@@ -307,32 +311,29 @@ const RepairManagementPage = () => {
       </div>
     </section>
 
-        {/* CTA Section */}
-        
-        <section className="py-20 px-8 text-center">
-          <div className="max-w-2xl mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-4xl font-bold mb-4"
-            >
-              Elevate Your Aircraft Maintenance Today
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Button className="bg-blue-600 text-white px-8 py-4 text-lg font-semibold hover:bg-blue-700">
-                Schedule a Repair Consultation
-              </Button>
-            </motion.div>
-          </div>
-        </section>
-      </div>
-      
-    </>
+      {/* CTA Section */}
+      <section className="py-20 px-8 text-center">
+        <div className="max-w-2xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl font-bold mb-4"
+          >
+            Elevate Your Aircraft Maintenance Today
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Button className="bg-blue-600 text-white px-8 py-4 text-lg font-semibold hover:bg-blue-700">
+              Schedule a Repair Consultation
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+    </div>
   );
 };
 
