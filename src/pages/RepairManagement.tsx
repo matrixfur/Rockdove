@@ -8,6 +8,8 @@ import { Meteors } from '../components/ui/meteors';
 import { Card, CardContent } from '../components/ui/card';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Header from '../components/Header';
+import {Footer} from '../components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -117,6 +119,8 @@ const RepairManagementPage = () => {
   ];
 
   return (
+    <>
+    <Header/>
     <div className="flex flex-col overflow-hidden bg-black text-white">
       <ContainerScroll
         titleComponent={
@@ -334,6 +338,8 @@ const RepairManagementPage = () => {
         </div>
       </section>
     </div>
+    <Footer />
+    </>
   );
 };
 
